@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -29,9 +30,16 @@ public class MainActivity extends AppCompatActivity {
     private CandyDbHelper candyDbHelper = new CandyDbHelper(this);
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent infoIntent = new Intent(packageContext this, InfoActivity.class);
+        startActivity();
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void addCandiesToDatabase(Candy[]candiies) {
+        SQLiteDatabase db = candyDbHelper.getWritableDatabase();
+
 
         SQLiteDatabase db = candyDbHelper.getWritableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM candy", null);
